@@ -1,0 +1,12 @@
+h1 {
+    font-size: 35px;
+	text-align: center;
+	margin-top: 75px;
+	margin-bottom: 20px;
+}
+
+.validate {
+    width: 100%;
+    margin: 0px;
+    clear: both;
+}
