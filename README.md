@@ -15,7 +15,8 @@ This application was built with Node.js and Express backend.
 ## Installation
 
 Instructions to following app install-
-
-git clone https://github.com/jrmiller022/FriendFinder.git
-cd FriendFinder
-npm install
+<ul>
+<li>git clone https://github.com/jrmiller022/FriendFinder.git</li>
+<li>cd FriendFinder</li>
+<li>npm install</li>
+</ul>
