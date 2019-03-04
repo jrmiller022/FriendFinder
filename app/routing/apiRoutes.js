@@ -2,42 +2,43 @@
 var friends = require("../data/friends");
 
 // ROUTING
-// ===============================================================================
-
 module.exports = function (app) {
     app.get("/api/fiends", function (req, res) {
         res.json(friends);
     })
 
     // API POST Requests
+
     app.post("/api/friends", function (req, res) {
-        var friendScores = req.body.scores;
-        var scoresArray = [];
-        var friendCount = 0;
-        var bestMatch = 0;
+        console.log(req.body.scores);
 
-        // forloop to run through current friends.
-        for (i = 0; i < friends.length; i++) {
-            var diff = 0;
+        var user = req.body;
 
-            //New scores to compare.
-            for (i = 0; i < friendScores.length; i++) {
-                diff += (Math.abs(parseInt(friends[i]) - parseInt(friendScores[j])));
-                console.log(diff);
-            }
-            scoresArray.push(diff);
+        // parseInt for scores
+        for (var i = 0; i < friends.length; i++) {
+            user.scores[i] = parseInt(user.scores[i]);
         }
-        //best match scores array loop.
-        for (var i = 0; i < scoresArray.length; i++) {
-            if (scoresArray[i] <= scoresArray[bestMatch]) {
-                bestMatch = i;
+
+        var bestFriendIndex = 0;
+        var minimumDiff = 40;
+
+        for (var i = 0; i < friends.length; i++) {
+            var totalDiff = 0;
+            for (var j = 0; j < friends[i].scores.length; j++) {
+                var difference = Math.abs(user.scores[j] - friends[i].scores[j]);
+                totalDiff += difference;
+            }
+
+            if (totalDiff < minimumDiff) {
+                bestFriendIndex = i;
+                minimumDiff = totalDiff;
             }
         }
-        //return bestMatch data
-        var newFriend = friendList[bestMatch];
-        res.json(newFriend);
 
-        //New adds into the friendsList array
-        friendList.push(req.body);
+        // Add match, add friends array
+        friends.push(user);
+
+        // sending friend match back.
+        res.json(friends[bestFriendIndex]);
     });
 };
